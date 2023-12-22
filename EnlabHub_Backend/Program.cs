@@ -46,47 +46,6 @@ builder.Services.AddSwaggerGen(c =>
 	});
 });
 
-//Connecting frontend
-
-
-builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-
-builder.Services.AddCors(options =>
-{
-	options.AddPolicy("AllowAllOrigins", builder =>
-	{
-		builder.WithOrigins("https://enlabhub-frontend.vercel.app/",
-				"http://localhost:3000")
-			.AllowAnyHeader()
-			.AllowAnyMethod()
-			.AllowCredentials();
-	});
-});
-
-
-
-//builder.Services.AddCors(options =>
-//{
-//	//var frontendURL = provider.GetValue<string>("frontendURL");
-
-//	options.AddPolicy("AllowedHosts",
-//		builder =>
-//		{
-//			builder.WithOrigins().AllowAnyOrigin()
-//				.AllowAnyHeader()
-//				.AllowAnyMethod();
-//		});
-//});
-//builder.Services.AddCors(options =>
-//{
-//	options.AddDefaultPolicy(builder =>
-//	{
-//		builder.AllowAnyOrigin()
-//			   .AllowAnyMethod()
-//			   .AllowAnyHeader()
-//			   .WithExposedHeaders("Authorization"); // Expose the Authorization header
-//	});
-//});
 
 
 var app = builder.Build();
@@ -102,6 +61,9 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 		c.RoutePrefix = "swagger";
 	});
 }
+
+
+app.UseCors("AllowAllOrigins");
 
 app.UseHttpsRedirection();
 

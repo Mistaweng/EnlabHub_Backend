@@ -98,20 +98,19 @@ namespace EnlabHub_Backend.Extensions
 				.AddEntityFrameworkStores<ApplicationDbContext>()
 				.AddDefaultTokenProviders();
 
+			//Connecting frontend
 
-
-			////configuring Cross-Origin Resource Sharing (CORS) settings 
-			//services.AddCors(options =>
-			//{
-			//	options.AddDefaultPolicy(builder =>
-			//	{
-			//		builder.WithOrigins("https://vercel.com/mistawengs-projects/enlabhub-frontend/9hU7N1eiWUED5Fsy52EtVCReNkLS",
-			//	"http://localhost:3000") // Replace with your React app's URL
-			//			   .AllowAnyHeader()
-			//			   .AllowAnyMethod()
-			//			   .WithExposedHeaders("Authorization"); // This adds the custom authorization header to response
-			//	});
-			//});
+			services.AddCors(options =>
+			{
+				options.AddPolicy("AllowAllOrigins", builder =>
+				{
+					builder.WithOrigins("http://localhost:3000", "https://enlabhub-frontend.vercel.app/")
+						.AllowAnyHeader()
+						.AllowAnyMethod()
+						.AllowCredentials()
+						.WithExposedHeaders("Authorization");
+				});
+			});
 
 		}
 	}
