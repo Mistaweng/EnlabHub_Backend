@@ -51,29 +51,42 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
-
 builder.Services.AddCors(options =>
 {
-	//var frontendURL = provider.GetValue<string>("frontendURL");
-
-	options.AddPolicy("AllowedHosts",
-		builder =>
-		{
-			builder.WithOrigins().AllowAnyOrigin()
-				.AllowAnyHeader()
-				.AllowAnyMethod();
-		});
-});
-builder.Services.AddCors(options =>
-{
-	options.AddDefaultPolicy(builder =>
+	options.AddPolicy("AllowAllOrigins", builder =>
 	{
-		builder.AllowAnyOrigin()
-			   .AllowAnyMethod()
-			   .AllowAnyHeader()
-			   .WithExposedHeaders("Authorization"); // Expose the Authorization header
+		builder.WithOrigins("https://enlabhub-frontend.vercel.app/",
+				"http://localhost:3000")
+			.AllowAnyHeader()
+			.AllowAnyMethod()
+			.AllowCredentials();
 	});
 });
+
+
+
+//builder.Services.AddCors(options =>
+//{
+//	//var frontendURL = provider.GetValue<string>("frontendURL");
+
+//	options.AddPolicy("AllowedHosts",
+//		builder =>
+//		{
+//			builder.WithOrigins().AllowAnyOrigin()
+//				.AllowAnyHeader()
+//				.AllowAnyMethod();
+//		});
+//});
+//builder.Services.AddCors(options =>
+//{
+//	options.AddDefaultPolicy(builder =>
+//	{
+//		builder.AllowAnyOrigin()
+//			   .AllowAnyMethod()
+//			   .AllowAnyHeader()
+//			   .WithExposedHeaders("Authorization"); // Expose the Authorization header
+//	});
+//});
 
 
 var app = builder.Build();
