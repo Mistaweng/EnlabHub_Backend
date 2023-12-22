@@ -46,6 +46,36 @@ builder.Services.AddSwaggerGen(c =>
 	});
 });
 
+//Connecting frontend
+
+
+builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+
+builder.Services.AddCors(options =>
+{
+	//var frontendURL = provider.GetValue<string>("frontendURL");
+
+	options.AddPolicy("AllowedHosts",
+		builder =>
+		{
+			builder.WithOrigins().AllowAnyOrigin()
+				.AllowAnyHeader()
+				.AllowAnyMethod();
+		});
+});
+builder.Services.AddCors(options =>
+{
+	options.AddDefaultPolicy(builder =>
+	{
+		builder.AllowAnyOrigin()
+			   .AllowAnyMethod()
+			   .AllowAnyHeader()
+			   .WithExposedHeaders("Authorization"); // Expose the Authorization header
+	});
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

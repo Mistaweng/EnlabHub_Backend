@@ -101,16 +101,16 @@ namespace EnlabHub_Backend.Extensions
 
 
 			////configuring Cross-Origin Resource Sharing (CORS) settings 
-			//services.AddCors(options =>
-			//{
-			//	options.AddDefaultPolicy(builder =>
-			//	{
-			//		builder.WithOrigins("*") // Replace with your React app's URL
-			//			   .AllowAnyHeader()
-			//			   .AllowAnyMethod()
-			//			   .WithExposedHeaders("Authorization"); // This adds the custom authorization header to response
-			//	});
-			//});
+			services.AddCors(options =>
+			{
+				options.AddDefaultPolicy(builder =>
+				{
+					builder.WithOrigins("*") // Replace with your React app's URL
+						   .AllowAnyHeader()
+						   .AllowAnyMethod()
+						   .WithExposedHeaders("Authorization"); // This adds the custom authorization header to response
+				});
+			});
 
 		}
 	}
